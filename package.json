@@ -1,5 +1,5 @@
 {
-    "name": "tsx-express-jwt-server",
+    "name": "tsx-express-jwt",
     "version": "0.0.0",
     "private": true,
     "scripts": {
