@@ -2,7 +2,7 @@
 
 const siteData = {
     name: "App name",
-    favicon: "",
+    favicon: "/favicon.ico",
     email: "",
     author: "",
     year: "",

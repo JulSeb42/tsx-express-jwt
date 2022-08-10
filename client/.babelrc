@@ -1,0 +1,15 @@
+{
+    "plugins": [
+        [
+            "babel-plugin-styled-components",
+            {
+                "fileName": false,
+                "pure": true,
+                "meaninglessFileNames": [
+                    "index",
+                    "styles"
+                ]
+            }
+        ]
+    ]
+}
