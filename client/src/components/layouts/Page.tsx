@@ -16,6 +16,7 @@ const Page = ({
     cover,
     form,
     isLoading,
+    template = "1col",
 }: Props) => {
     return (
         <>
@@ -28,8 +29,12 @@ const Page = ({
 
             {!isLoading && <Header />}
 
-            <Wrapper>
-                <Main size={form ? "form" : "default"}>{children}</Main>
+            <Wrapper template={template}>
+                {template === "1col" ? (
+                    <Main size={form ? "form" : "default"}>{children}</Main>
+                ) : (
+                    children
+                )}
             </Wrapper>
         </>
     )
@@ -41,4 +46,5 @@ interface Props extends HelmetProps {
     children: any
     form?: boolean
     isLoading?: boolean
+    template?: "1col" | "2cols" | "3cols"
 }
