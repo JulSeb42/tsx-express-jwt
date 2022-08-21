@@ -1,4 +1,5 @@
-// Imports
+/*=============================================== Authentification routes ===============================================*/
+
 const router = require("express").Router()
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
@@ -13,7 +14,7 @@ const {
     getRandomString,
 } = require("ts-utils-julseb")
 const jwtConfig = require("../utils/jwtConfig")
-const transporter = require("../utils/transporter")
+const sendMail = require("../utils/send-mail")
 
 // Salt password
 const saltRounds = 10
@@ -61,20 +62,11 @@ router.post("/signup", (req, res, next) => {
                 verifyToken,
             }).then(createdUser => {
                 // Send email to verify the account
-                let mailDetails = {
-                    from: process.env.EMAIL,
-                    to: email,
-                    subject: "Verify your account on our app",
-                    html: `Hello,<br /><br />Thank you for creating your account on our app! <a href="${process.env.ORIGIN}/verify/${verifyToken}/${createdUser._id}">Click here to verify your account</a>.`,
-                }
-
-                transporter.sendMail(mailDetails, (err, data) => {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log("Email sent successfully.")
-                    }
-                })
+                sendMail(
+                    email,
+                    "Verify your account on our app",
+                    `Hello,<br /><br />Thank you for creating your account on our app! <a href="${process.env.ORIGIN}/verify/${verifyToken}/${createdUser._id}">Click here to verify your account</a>.`
+                )
 
                 // Payload
                 const payload = { user: createdUser }
@@ -181,20 +173,11 @@ router.post("/forgot-password", (req, res, next) => {
                 { resetToken },
                 { new: true }
             ).then(foundUser => {
-                let mailDetails = {
-                    from: process.env.EMAIL,
-                    to: email,
-                    subject: "Reset your password on our app",
-                    html: `Hello,<br /><br />To reset your password, <a href="${process.env.ORIGIN}/reset-password/${resetToken}/${foundUser._id}">click here</a>.`,
-                }
-
-                transporter.sendMail(mailDetails, function (err, data) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log("Email sent successfully")
-                    }
-                })
+                sendMail(
+                    email,
+                    "Reset your password on our app",
+                    `Hello,<br /><br />To reset your password, <a href="${process.env.ORIGIN}/reset-password/${resetToken}/${foundUser._id}">click here</a>.`
+                )
 
                 res.status(200).json(res.body)
             })

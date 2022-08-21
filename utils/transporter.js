@@ -1,4 +1,5 @@
-// Nodemailer config
+/*=============================================== Nodemailer config ===============================================*/
+
 const nodemailer = require("nodemailer")
 
 const transporter = nodemailer.createTransport({

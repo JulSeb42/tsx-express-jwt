@@ -1,4 +1,5 @@
-// Imports
+/*=============================================== JWT middleware ===============================================*/
+
 const { expressjwt: jwt } = require("express-jwt")
 
 const isAuthenticated = jwt({
