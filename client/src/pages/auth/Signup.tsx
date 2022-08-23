@@ -1,9 +1,8 @@
 /*=============================================== Signup ===============================================*/
 
 import React, { useState, useContext } from "react"
-import { Text, Form, Input, ComponentProps, Alert } from "tsx-library-julseb"
+import { Text, Form, Input, ComponentProps, Alert, Utils } from "tsx-library-julseb"
 import { useNavigate } from "react-router-dom"
-import { passwordRegex } from "ts-utils-julseb"
 import { Link } from "react-router-dom"
 
 import { AuthContext, ContextType } from "../../context/auth"
@@ -34,7 +33,7 @@ const Signup = () => {
         })
 
         if (e.target.id === "password" && e.target.value.length > 0) {
-            if (passwordRegex.test(e.target.value)) {
+            if (Utils.passwordRegex.test(e.target.value)) {
                 setValidationPassword("passed")
             } else {
                 setValidationPassword("not-passed")
