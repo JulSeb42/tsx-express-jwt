@@ -17,6 +17,7 @@ const userSchema = new Schema(
         verified: Boolean,
         verifyToken: String,
         resetToken: String,
+        imageUrl: String,
     },
     {
         timestamps: true,

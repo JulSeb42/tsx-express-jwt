@@ -21,7 +21,7 @@ const saltRounds = 10
 
 // Signup
 router.post("/signup", (req, res, next) => {
-    const { email, fullName, password } = req.body
+    const { email, fullName, password, imageUrl } = req.body
     const verifyToken = getRandomString(20)
 
     if (!fullName) {
@@ -60,6 +60,7 @@ router.post("/signup", (req, res, next) => {
                 password: hashedPassword,
                 verified: false,
                 verifyToken,
+                imageUrl,
             }).then(createdUser => {
                 // Send email to verify the account
                 sendMail(

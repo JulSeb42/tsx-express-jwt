@@ -1,11 +1,12 @@
 /*=============================================== EditAccount ===============================================*/
 
 import React, { useContext, useState } from "react"
-import { Text, Form, Input, Alert } from "tsx-library-julseb"
+import { Text, Form, Input, Alert, InputImage } from "tsx-library-julseb"
 import { useNavigate, Link } from "react-router-dom"
 
 import { AuthContext, ContextType } from "../../context/auth"
 import userService from "../../api/user.service"
+import cloudinaryService from "../../api/cloudinary.service"
 
 import Page from "../../components/layouts/Page"
 import DangerZone from "../../components/DangerZone"
@@ -21,11 +22,52 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
 
     const [inputs, setInputs] = useState({
         fullName: user.fullName,
+        imageUrl: user.imageUrl,
     })
+    const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) =>
         setInputs({ ...inputs, [e.target.id]: e.target.value })
+
+    const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+
+        const uploadData = new FormData()
+        setIsLoading(true)
+
+        // @ts-expect-error
+        uploadData.append("imageUrl", e.target.files[0])
+
+        cloudinaryService
+            .uploadImage(uploadData)
+            .then(res => {
+                setInputs({
+                    ...inputs,
+                    imageUrl: res.secure_url,
+                })
+                setIsLoading(false)
+            })
+            .catch(err => console.log(err))
+
+        // @ts-expect-error
+        if (e.target.files[0]) {
+            setInputs({
+                ...inputs,
+                // @ts-expect-error
+                imageUrl: e.target.files[0],
+            })
+            const reader = new FileReader()
+            reader.addEventListener("load", () => {
+                setInputs({
+                    ...inputs,
+                    imageUrl: reader.result,
+                })
+            })
+            // @ts-expect-error
+            reader.readAsDataURL(e.target.files[0])
+        }
+    }
 
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -61,6 +103,7 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
                 onSubmit={handleSubmit}
                 buttonPrimary={{ text: "Save changes" }}
                 buttonSecondary={{ text: "Cancel", to: "/my-account" }}
+                isLoading={isLoading}
             >
                 <Input
                     id="fullName"
@@ -78,6 +121,14 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
                         helperBottom: "You can not edit your email.",
                     }}
                     disabled
+                />
+
+                <InputImage
+                    id="imageUrl"
+                    onChange={(e: any) => handleImage(e)}
+                    img={{ src: inputs.imageUrl }}
+                    options={{ label: "Input image" }}
+                    icons={{ empty: "user" }}
                 />
             </Form>
 

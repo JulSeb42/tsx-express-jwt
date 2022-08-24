@@ -4,10 +4,12 @@ import React, { useState, useEffect, createContext } from "react"
 
 import authService from "../api/auth.service"
 
+import { UserType } from "../data/global-types"
+
 export type ContextType = {
     isLoggedIn?: boolean
     isLoading?: boolean
-    user?: any
+    user?: any | UserType
     setUser?: any
     loginUser?: any
     logoutUser?: any

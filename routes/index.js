@@ -14,4 +14,7 @@ router.use("/auth", auth)
 const users = require("./users")
 router.use("/users", users)
 
+const uploader = require("./uploader")
+router.use("/uploader", uploader)
+
 module.exports = router

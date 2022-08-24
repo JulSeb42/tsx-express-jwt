@@ -1,7 +1,7 @@
 /*=============================================== MyAccount ===============================================*/
 
 import React, { useContext } from "react"
-import { Text, Utils } from "tsx-library-julseb"
+import { Text, Utils, Avatar, Flexbox } from "tsx-library-julseb"
 import { Link } from "react-router-dom"
 
 import { AuthContext, ContextType } from "../../context/auth"
@@ -13,7 +13,19 @@ const MyAccount = () => {
 
     return (
         <Page title="My account">
-            <Text tag="h1">Hello {Utils.getFirstName(user.fullName)}</Text>
+            <Flexbox alignItems="center" gap="xs">
+                <Avatar
+                    content={{
+                        img: {
+                            src: user.imageUrl,
+                            alt: `Avatar ${user.fullName}`,
+                        },
+                    }}
+                    options={{ size: 48 }}
+                />
+
+                <Text tag="h1">Hello {Utils.getFirstName(user.fullName)}</Text>
+            </Flexbox>
 
             {!user.verified && <Text>Your account is not verified!</Text>}
 

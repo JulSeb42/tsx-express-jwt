@@ -46,8 +46,13 @@ const Signup = () => {
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        const requestBody = {
+            ...inputs,
+            imageUrl: Utils.getRandomAvatar(),
+        }
+
         authService
-            .signup(inputs)
+            .signup(requestBody)
             .then(res => {
                 loginUser(res.data.authToken)
                 navigate("/thank-you")
