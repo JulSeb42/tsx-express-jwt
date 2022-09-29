@@ -9,10 +9,7 @@ const DangerZone = ({ texts, buttonPrimary }: Props) => {
     return (
         <>
             {!isVisible && (
-                <Button
-                    options={{ color: "danger" }}
-                    onClick={() => setIsVisible(true)}
-                >
+                <Button color="danger" onClick={() => setIsVisible(true)}>
                     {texts.buttonOpen}
                 </Button>
             )}
@@ -22,15 +19,12 @@ const DangerZone = ({ texts, buttonPrimary }: Props) => {
                     <Text>{texts.body}</Text>
 
                     <Flexbox alignItems="center" gap="xs">
-                        <Button
-                            options={{ color: "danger" }}
-                            onClick={buttonPrimary.onClick}
-                        >
+                        <Button color="danger" onClick={buttonPrimary.onClick}>
                             {buttonPrimary.text}
                         </Button>
 
                         <Button
-                            options={{ variant: "text" }}
+                            variant="text"
                             onClick={() => setIsVisible(false)}
                         >
                             {texts.buttonSecondary || "Cancel"}

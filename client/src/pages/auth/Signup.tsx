@@ -24,7 +24,7 @@ const Signup = () => {
         useState<ErrorMessageType>(undefined)
     
     const [validationPassword, setValidationPassword] =
-        useState<ComponentProps.ValidationProps>(undefined)
+        useState<ComponentProps.ValidationStatusProps>(undefined)
 
     const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputs({
@@ -74,9 +74,7 @@ const Signup = () => {
             >
                 <Input
                     id="fullName"
-                    options={{
-                        label: "Full name",
-                    }}
+                    label="Full name"
                     value={inputs.fullName}
                     onChange={handleInputs}
                     autoFocus
@@ -84,18 +82,14 @@ const Signup = () => {
 
                 <Input
                     id="email"
-                    options={{
-                        label: "Email",
-                    }}
+                    label="Email"
                     value={inputs.email}
                     onChange={handleInputs}
                 />
 
                 <Input
                     id="password"
-                    options={{
-                        label: "Password"
-                    }}
+                    label="Password"
                     value={inputs.password}
                     onChange={handleInputs}
                     password

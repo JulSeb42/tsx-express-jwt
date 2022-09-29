@@ -9,6 +9,7 @@ import {
     ComponentProps,
     Utils,
     Alert,
+    Hooks,
 } from "tsx-library-julseb"
 
 import authService from "../../api/auth.service"
@@ -16,6 +17,13 @@ import userService from "../../api/user.service"
 
 import Page from "../../components/layouts/Page"
 import NotFound from "../NotFound"
+
+interface FormType extends ComponentProps.BaseUseFormType {
+    formData: {
+        email: string
+        password: string
+    }
+}
 
 const ResetPassword = () => {
     const navigate = useNavigate()
@@ -33,16 +41,52 @@ const ResetPassword = () => {
         })
     }, [])
 
-    const [password, setPassword] = useState("")
+    // const [password, setPassword] = useState("")
+    // const [validation, setValidation] =
+    //     useState<ComponentProps.ValidationProps>(undefined)
+    // const [errorMessage, setErrorMessage] = useState(undefined)
+
+    // const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setPassword(e.target.value)
+
+    //     if (e.target.value.length > 0) {
+    //         if (Utils.passwordRegex.test(e.target.value)) {
+    //             setValidation("passed")
+    //         } else {
+    //             setValidation("not-passed")
+    //         }
+    //     } else {
+    //         setValidation(undefined)
+    //     }
+    // }
+
+    // const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    //     e.preventDefault()
+
+    //     const requestBody = { password, resetToken: token, id }
+
+    // }
+
+    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+        {
+            email: "",
+            password: "",
+            resetToken: token,
+            id,
+        },
+        (formData: FormType) =>
+            authService
+                .resetPassword(formData)
+                .then(() => navigate("/login"))
+                .catch(err => setErrorMessage(err.response.data.message))
+    ) as FormType
+
     const [validation, setValidation] =
-        useState<ComponentProps.ValidationProps>(undefined)
-    const [errorMessage, setErrorMessage] = useState(undefined)
+        useState<ComponentProps.ValidationStatusProps>(undefined)
 
-    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value)
-
-        if (e.target.value.length > 0) {
-            if (Utils.passwordRegex.test(e.target.value)) {
+    useEffect(() => {
+        if (formData.password.length > 0) {
+            if (Utils.passwordRegex.test(formData.password)) {
                 setValidation("passed")
             } else {
                 setValidation("not-passed")
@@ -50,26 +94,31 @@ const ResetPassword = () => {
         } else {
             setValidation(undefined)
         }
-    }
+        // eslint-disable-next-line
+    }, [])
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    // const handleValidation = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const requestBody = { password, resetToken: token, id }
+    //     if (e.target.value.length > 0) {
+    //         if (Utils.passwordRegex.test(e.target.value)) {
+    //             setValidation("passed")
+    //         } else {
+    //             setValidation("not-passed")
+    //         }
+    //     } else {
+    //         setValidation(undefined)
+    //     }
+    // }
 
-        authService
-            .resetPassword(requestBody)
-            .then(() => navigate("/login"))
-            .catch(err => setErrorMessage(err.response.data.message))
-    }
+    const [errorMessage, setErrorMessage] = useState(undefined)
 
     if (!isLoading) {
-         if (
-             (id !== undefined && !allIds?.includes(id)) ||
-             (token !== undefined && !allTokens?.includes(token))
-         ) {
-             return <NotFound />
-         }
+        if (
+            (id !== undefined && !allIds?.includes(id)) ||
+            (token !== undefined && !allTokens?.includes(token))
+        ) {
+            return <NotFound />
+        }
     }
 
     return (
@@ -80,14 +129,14 @@ const ResetPassword = () => {
                 <Input
                     id="password"
                     password
-                    options={{
-                        label: "New password",
-                        helperBottom:
-                            validation &&
-                            "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter.",
+                    label="New password"
+                    helperBottom={{
+                        text: validation ? "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter." : "",
+                        icon: validation && "close-circle",
+                        iconColor: "danger",
                     }}
-                    value={password}
-                    onChange={handlePassword}
+                    value={formData.password}
+                    onChange={handleInputs}
                     validation={{ status: validation }}
                 />
             </Form>

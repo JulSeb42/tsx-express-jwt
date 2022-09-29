@@ -1,30 +1,41 @@
 /*=============================================== ForgotPassword ===============================================*/
 
 import React, { useState } from "react"
-import { Text, Form, Input, Alert } from "tsx-library-julseb"
+import {
+    Text,
+    Form,
+    Input,
+    Alert,
+    Hooks,
+    ComponentProps,
+} from "tsx-library-julseb"
 import { useNavigate } from "react-router-dom"
 
 import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
 
+interface FormType extends ComponentProps.BaseUseFormType {
+    formData: {
+        email: string
+    }
+}
+
 const ForgotPassword = () => {
     const navigate = useNavigate()
 
-    const [email, setEmail] = useState("")
+    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+        {
+            email: "",
+        },
+        (formData: FormType) =>
+            authService
+                .forgotPassword(formData)
+                .then(() => navigate("/login/forgot-password/email-sent"))
+                .catch(err => setErrorMessage(err.response.data.message))
+    ) as FormType
+
     const [errorMessage, setErrorMessage] = useState(undefined)
-
-    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setEmail(e.target.value)
-
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
-
-        authService
-            .forgotPassword({ email })
-            .then(() => navigate("/login/forgot-password/email-sent"))
-            .catch(err => setErrorMessage(err.response.data.message))
-    }
 
     return (
         <Page title="I forgot my password" form>
@@ -42,9 +53,9 @@ const ForgotPassword = () => {
             >
                 <Input
                     id="email"
-                    onChange={handleEmail}
-                    value={email}
-                    options={{ label: "Email" }}
+                    onChange={handleInputs}
+                    value={formData.email}
+                    label="Email"
                     autoFocus
                 />
             </Form>

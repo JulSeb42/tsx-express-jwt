@@ -109,17 +109,15 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
                     id="fullName"
                     value={inputs.fullName}
                     onChange={handleInputs}
-                    options={{ label: "Full name" }}
+                    label="Full name"
                     autoFocus
                 />
 
                 <Input
                     id="email"
                     value={user.email}
-                    options={{
-                        label: "Email",
-                        helperBottom: "You can not edit your email.",
-                    }}
+                    label="Email"
+                    helperBottom="You can not edit your email."
                     disabled
                 />
 
@@ -127,7 +125,7 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
                     id="imageUrl"
                     onChange={(e: any) => handleImage(e)}
                     img={{ src: inputs.imageUrl }}
-                    options={{ label: "Input image" }}
+                    label="Profile picture"
                     icons={{ empty: "user" }}
                 />
             </Form>

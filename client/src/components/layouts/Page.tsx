@@ -43,7 +43,7 @@ const Page = ({
 export default Page
 
 interface Props extends HelmetProps {
-    children: any
+    children?: any
     form?: boolean
     isLoading?: boolean
     template?: "1col" | "2cols" | "3cols"

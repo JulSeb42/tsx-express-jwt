@@ -3,6 +3,7 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
+import { ThemeProviderWrapper } from "tsx-library-julseb"
 
 import App from "./App"
 import { AuthProviderWrapper } from "./context/auth"
@@ -15,9 +16,11 @@ import "./styles/index.css"
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
     <BrowserRouter>
-        <AuthProviderWrapper>
-            <App />
-        </AuthProviderWrapper>
+        <ThemeProviderWrapper>
+            <AuthProviderWrapper>
+                <App />
+            </AuthProviderWrapper>
+        </ThemeProviderWrapper>
     </BrowserRouter>
 )
 

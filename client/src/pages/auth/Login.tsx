@@ -1,7 +1,14 @@
 /*=============================================== Login ===============================================*/
 
 import React, { useState, useContext } from "react"
-import { Text, Form, Input, Alert } from "tsx-library-julseb"
+import {
+    Text,
+    Form,
+    Input,
+    Alert,
+    Hooks,
+    ComponentProps,
+} from "tsx-library-julseb"
 import { useNavigate, Link } from "react-router-dom"
 
 import { AuthContext, ContextType } from "../../context/auth"
@@ -9,33 +16,33 @@ import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
 
+interface FormType extends ComponentProps.BaseUseFormType {
+    formData: {
+        email: string
+        password: string
+    }
+}
+
 const Login = () => {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as ContextType
 
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: "",
-    })
+    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+        {
+            email: "",
+            password: "",
+        },
+        (formData: FormType) =>
+            authService
+                .login(formData)
+                .then(res => {
+                    loginUser(res.data.authToken)
+                    navigate(-1)
+                })
+                .catch(err => setErrorMessage(err.response.data.message))
+    ) as FormType
+
     const [errorMessage, setErrorMessage] = useState(undefined)
-
-    const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setInputs({
-            ...inputs,
-            [e.target.id]: e.target.value,
-        })
-
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
-
-        authService
-            .login(inputs)
-            .then(res => {
-                loginUser(res.data.authToken)
-                navigate(-1)
-            })
-            .catch(err => setErrorMessage(err.response.data.message))
-    }
 
     return (
         <Page title="Log in" form>
@@ -45,18 +52,18 @@ const Login = () => {
                 <Input
                     id="email"
                     type="email"
-                    value={inputs.email}
+                    value={formData.email}
                     onChange={handleInputs}
-                    options={{ label: "Email" }}
+                    label="Email"
                     autoFocus
                 />
 
                 <Input
                     id="password"
                     password
-                    value={inputs.password}
+                    value={formData.password}
                     onChange={handleInputs}
-                    options={{ label: "Password" }}
+                    label="Password"
                 />
             </Form>
 

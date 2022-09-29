@@ -24,7 +24,7 @@ const EditPassword = ({ edited, setEdited }: EditProps) => {
 
     const [password, setPassword] = useState("")
     const [validation, setValidation] =
-        useState<ComponentProps.ValidationProps>(undefined)
+        useState<ComponentProps.ValidationStatusProps>(undefined)
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +65,13 @@ const EditPassword = ({ edited, setEdited }: EditProps) => {
                 <Input
                     id="password"
                     password
-                    options={{
-                        label: "New password",
-                        helperBottom:
-                            validation &&
-                            "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter.",
+                    label="New password"
+                    helperBottom={{
+                        text: validation
+                            ? "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter."
+                            : "",
+                        icon: validation && "close-circle",
+                        iconColor: "danger",
                     }}
                     validation={{ status: validation }}
                     value={password}

@@ -2,8 +2,13 @@
 
 import React, { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { Header as Container } from "tsx-library-julseb"
-import { v4 as uuid } from "uuid"
+import {
+    Header as Container,
+    Utils,
+    ThemeContext,
+    ComponentProps,
+    ButtonIcon,
+} from "tsx-library-julseb"
 
 import { AuthContext, ContextType } from "../../context/auth"
 
@@ -11,11 +16,19 @@ import siteData from "../../data/site-data"
 
 const Header = () => {
     const { isLoggedIn, logoutUser } = useContext(AuthContext) as ContextType
+    const { toggleTheme, selectedTheme } = useContext(
+        ThemeContext
+    ) as ComponentProps.ThemeContextProps
 
     const baseLinks: NavLinkType[] = [
         {
             text: "Home",
             to: "/",
+            end: true,
+        },
+        {
+            text: "All users",
+            to: "/all-users",
         },
     ]
 
@@ -42,42 +55,55 @@ const Header = () => {
     ]
 
     return (
-        <Container logo={{ text: siteData.name }}>
-            {baseLinks.map(({ text, to, onClick }) =>
+        <Container
+            logo={{ text: siteData.name }}
+            navMobileVariant="drawer"
+            shadow="m"
+        >
+            {baseLinks.map(({ text, to, onClick, end }) =>
                 to ? (
-                    <NavLink to={to} key={uuid()}>
+                    <NavLink to={to} end={end} key={Utils.uuid()}>
                         {text}
                     </NavLink>
                 ) : (
-                    <button onClick={onClick} key={uuid()}>
+                    <button onClick={onClick} key={Utils.uuid()}>
                         {text}
                     </button>
                 )
             )}
 
             {isLoggedIn
-                ? loggedInLinks.map(({ text, to, onClick }) =>
+                ? loggedInLinks.map(({ text, to, onClick, end }) =>
                       to ? (
-                          <NavLink to={to} key={uuid()}>
+                          <NavLink to={to} end={end} key={Utils.uuid()}>
                               {text}
                           </NavLink>
                       ) : (
-                          <button onClick={onClick} key={uuid()}>
+                          <button onClick={onClick} key={Utils.uuid()}>
                               {text}
                           </button>
                       )
                   )
-                : notLoggedInLinks.map(({ text, to, onClick }) =>
+                : notLoggedInLinks.map(({ text, to, onClick, end }) =>
                       to ? (
-                          <NavLink to={to} key={uuid()}>
+                          <NavLink to={to} end={end} key={Utils.uuid()}>
                               {text}
                           </NavLink>
                       ) : (
-                          <button onClick={onClick} key={uuid()}>
+                          <button onClick={onClick} key={Utils.uuid()}>
                               {text}
                           </button>
                       )
                   )}
+
+            <ButtonIcon
+                icon={selectedTheme === "dark" ? "sun" : "moon"}
+                size={24}
+                variant="transparent"
+                color="background"
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+            />
         </Container>
     )
 }
@@ -86,6 +112,7 @@ export default Header
 
 interface NavLinkBase {
     text: string
+    end?: boolean
 }
 
 interface NavLinkTo extends NavLinkBase {

@@ -13,4 +13,5 @@ export interface UserType {
     verifyToken: string
     resetToken?: string
     imageUrl: string
+    _id: string
 }

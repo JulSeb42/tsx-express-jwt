@@ -15,13 +15,9 @@ const MyAccount = () => {
         <Page title="My account">
             <Flexbox alignItems="center" gap="xs">
                 <Avatar
-                    content={{
-                        img: {
-                            src: user.imageUrl,
-                            alt: `Avatar ${user.fullName}`,
-                        },
-                    }}
-                    options={{ size: 48 }}
+                    img={user.imageUrl}
+                    alt={`Avatar ${user.fullName}`}
+                    size={48}
                 />
 
                 <Text tag="h1">Hello {Utils.getFirstName(user.fullName)}</Text>
