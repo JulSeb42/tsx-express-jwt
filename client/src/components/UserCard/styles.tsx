@@ -17,7 +17,7 @@ const StyledUserCard = styled(Link)`
     border-radius: ${Radiuses.M};
     overflow: hidden;
     position: relative;
-    color: ${({ theme }) => theme.Background};
+    color: ${({ theme }) => theme.White};
     text-decoration: none;
     font-size: ${FontSizes.Titles.H6};
     transition: ${Transitions.Short};
