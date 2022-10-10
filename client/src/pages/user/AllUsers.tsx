@@ -8,7 +8,7 @@ import userService from "../../api/user.service"
 import Page from "../../components/layouts/Page"
 import UserCard from "../../components/UserCard"
 
-import { UserType } from "../../data/global-types"
+import { UserType } from "../../types"
 
 const AllUsers = () => {
     const { response, error, isLoading } = Hooks.useFetch<UserType[] | null>(

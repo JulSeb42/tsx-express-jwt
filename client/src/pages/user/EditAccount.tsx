@@ -11,9 +11,9 @@ import cloudinaryService from "../../api/cloudinary.service"
 import Page from "../../components/layouts/Page"
 import DangerZone from "../../components/DangerZone"
 
-import { EditProps } from "../../data/global-types"
+import { EditType } from "../../types"
 
-const EditAccount = ({ edited, setEdited }: EditProps) => {
+const EditAccount = ({ edited, setEdited }: EditType) => {
     const navigate = useNavigate()
 
     const { user, setUser, setToken, logoutUser } = useContext(
@@ -96,7 +96,7 @@ const EditAccount = ({ edited, setEdited }: EditProps) => {
     }
 
     return (
-        <Page title="Edit your account" form>
+        <Page title="Edit your account">
             <Text tag="h1">Edit your account</Text>
 
             <Form

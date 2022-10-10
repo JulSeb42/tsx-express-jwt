@@ -16,9 +16,9 @@ import userService from "../../api/user.service"
 
 import Page from "../../components/layouts/Page"
 
-import { EditProps } from "../../data/global-types"
+import { EditType } from "../../types"
 
-const EditPassword = ({ edited, setEdited }: EditProps) => {
+const EditPassword = ({ edited, setEdited }: EditType) => {
     const { user, setUser, setToken } = useContext(AuthContext) as ContextType
     const navigate = useNavigate()
 
@@ -54,7 +54,7 @@ const EditPassword = ({ edited, setEdited }: EditProps) => {
     }
 
     return (
-        <Page title="Edit password" form>
+        <Page title="Edit password">
             <Text tag="h1">Edit your password</Text>
 
             <Form

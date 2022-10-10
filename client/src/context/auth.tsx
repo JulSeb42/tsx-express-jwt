@@ -4,7 +4,7 @@ import React, { useState, useEffect, createContext } from "react"
 
 import authService from "../api/auth.service"
 
-import { UserType } from "../data/global-types"
+import { UserType } from "../types"
 
 export type ContextType = {
     isLoggedIn?: boolean

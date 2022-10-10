@@ -41,32 +41,6 @@ const ResetPassword = () => {
         })
     }, [])
 
-    // const [password, setPassword] = useState("")
-    // const [validation, setValidation] =
-    //     useState<ComponentProps.ValidationProps>(undefined)
-    // const [errorMessage, setErrorMessage] = useState(undefined)
-
-    // const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setPassword(e.target.value)
-
-    //     if (e.target.value.length > 0) {
-    //         if (Utils.passwordRegex.test(e.target.value)) {
-    //             setValidation("passed")
-    //         } else {
-    //             setValidation("not-passed")
-    //         }
-    //     } else {
-    //         setValidation(undefined)
-    //     }
-    // }
-
-    // const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-
-    //     const requestBody = { password, resetToken: token, id }
-
-    // }
-
     const { formData, handleInputs, handleSubmit } = Hooks.useForm(
         {
             email: "",
@@ -97,19 +71,6 @@ const ResetPassword = () => {
         // eslint-disable-next-line
     }, [])
 
-    // const handleValidation = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    //     if (e.target.value.length > 0) {
-    //         if (Utils.passwordRegex.test(e.target.value)) {
-    //             setValidation("passed")
-    //         } else {
-    //             setValidation("not-passed")
-    //         }
-    //     } else {
-    //         setValidation(undefined)
-    //     }
-    // }
-
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     if (!isLoading) {
@@ -122,7 +83,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <Page title="Reset your password" form>
+        <Page title="Reset your password">
             <Text tag="h1">Reset your password</Text>
 
             <Form onSubmit={handleSubmit} buttonPrimary={{ text: "Send" }}>

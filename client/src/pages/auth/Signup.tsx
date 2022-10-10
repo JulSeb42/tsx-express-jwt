@@ -63,7 +63,7 @@ const Signup = () => {
     }
 
     return (
-        <Page title="Signup" form>
+        <Page title="Signup">
             <Text tag="h1">Create an account</Text>
 
             <Form

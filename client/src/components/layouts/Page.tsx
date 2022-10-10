@@ -14,7 +14,8 @@ const Page = ({
     description,
     keywords,
     cover,
-    form,
+    mainWidth = "default",
+    noWrapper,
     isLoading,
     template = "1col",
 }: Props) => {
@@ -29,13 +30,17 @@ const Page = ({
 
             {!isLoading && <Header />}
 
-            <Wrapper template={template}>
-                {template === "1col" ? (
-                    <Main size={form ? "form" : "default"}>{children}</Main>
-                ) : (
-                    children
-                )}
-            </Wrapper>
+            {!noWrapper ? (
+                <Wrapper template={template}>
+                    {template === "1col" ? (
+                        <Main size={mainWidth}>{children}</Main>
+                    ) : (
+                        children
+                    )}
+                </Wrapper>
+            ) : (
+                children
+            )}
         </>
     )
 }
@@ -44,7 +49,8 @@ export default Page
 
 interface Props extends HelmetProps {
     children?: any
-    form?: boolean
+    mainWidth?: "default" | "large" | "form"
     isLoading?: boolean
     template?: "1col" | "2cols" | "3cols"
+    noWrapper?: boolean
 }

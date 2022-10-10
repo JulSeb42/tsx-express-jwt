@@ -9,13 +9,12 @@ import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
 
-import { EditProps } from "../../data/global-types"
+import { EditType } from "../../types"
 
-const Verify = ({ edited, setEdited }: EditProps) => {
+const Verify = ({ edited, setEdited }: EditType) => {
     const { user, setUser, isLoggedIn, setToken } = useContext(
         AuthContext
     ) as ContextType
-
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [verified, setVerified] = useState<boolean>(false)

@@ -8,7 +8,7 @@ import userService from "../../api/user.service"
 
 import Page from "../../components/layouts/Page"
 
-import { UserType } from "../../data/global-types"
+import { UserType } from "../../types"
 
 const PublicProfile = () => {
     const { id } = useParams()
