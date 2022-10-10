@@ -64,7 +64,7 @@ const Signup = () => {
     }
 
     return (
-        <Page title="Signup">
+        <Page title="Signup" mainWidth="form">
             <Text tag="h1">Create an account</Text>
 
             <Form

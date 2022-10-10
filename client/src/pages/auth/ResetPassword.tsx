@@ -83,7 +83,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <Page title="Reset your password">
+        <Page title="Reset your password" mainWidth="form">
             <Text tag="h1">Reset your password</Text>
 
             <Form onSubmit={handleSubmit} buttonPrimary={{ text: "Send" }}>
@@ -92,7 +92,9 @@ const ResetPassword = () => {
                     password
                     label="New password"
                     helperBottom={{
-                        text: validation ? "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter." : "",
+                        text: validation
+                            ? "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter."
+                            : "",
                         icon: validation && "close-circle",
                         iconColor: "danger",
                     }}

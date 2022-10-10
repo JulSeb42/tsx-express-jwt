@@ -96,7 +96,7 @@ const EditAccount = ({ edited, setEdited }: EditType) => {
     }
 
     return (
-        <Page title="Edit your account">
+        <Page title="Edit your account" mainWidth="form">
             <Text tag="h1">Edit your account</Text>
 
             <Form

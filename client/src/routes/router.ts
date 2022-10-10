@@ -16,7 +16,7 @@ import ResetPassword from "../pages/auth/ResetPassword"
 import Goodbye from "../pages/auth/Goodbye"
 
 import MyAccount from "../pages/user/MyAccount"
-import EditAccount from "../pages/user/EditAccount"
+import EditAccount from "../pages/account/EditAccount"
 import EditPassword from "../pages/user/EditPassword"
 import PublicProfile from "../pages/user/PublicProfile"
 

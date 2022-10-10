@@ -38,7 +38,7 @@ const ForgotPassword = () => {
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     return (
-        <Page title="I forgot my password">
+        <Page title="I forgot my password" mainWidth="form">
             <Text tag="h1">I forgot my password</Text>
 
             <Text>
