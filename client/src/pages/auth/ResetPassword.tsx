@@ -7,10 +7,10 @@ import {
     Form,
     Input,
     ComponentProps,
-    Utils,
     Alert,
-    Hooks,
 } from "tsx-library-julseb"
+import { passwordRegex } from "../../utils"
+import { useForm } from "../../hooks"
 
 import authService from "../../api/auth.service"
 import userService from "../../api/user.service"
@@ -41,7 +41,7 @@ const ResetPassword = () => {
         })
     }, [])
 
-    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+    const { formData, handleInputs, handleSubmit } = useForm(
         {
             email: "",
             password: "",
@@ -60,7 +60,7 @@ const ResetPassword = () => {
 
     useEffect(() => {
         if (formData.password.length > 0) {
-            if (Utils.passwordRegex.test(formData.password)) {
+            if (passwordRegex.test(formData.password)) {
                 setValidation("passed")
             } else {
                 setValidation("not-passed")

@@ -2,7 +2,8 @@
 
 import React, { useState, useContext } from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
-import { Utils, ThemeContext, ThemeProvider, ComponentProps } from "tsx-library-julseb"
+import { ThemeContext, ThemeProvider, ComponentProps } from "tsx-library-julseb"
+import { uuid } from "./utils"
 
 import ProtectedRoute from "./routes/ProtectedRoute"
 import AnonRoute from "./routes/AnonRoute"
@@ -42,7 +43,7 @@ const App = () => {
                                 />
                             )
                         }
-                        key={Utils.uuid()}
+                        key={uuid()}
                     />
                 ))}
 
@@ -51,7 +52,7 @@ const App = () => {
                         <Route
                             path={route.path}
                             element={<Navigate to={route.to} />}
-                            key={Utils.uuid()}
+                            key={uuid()}
                         />
                     ))}
             </Routes>

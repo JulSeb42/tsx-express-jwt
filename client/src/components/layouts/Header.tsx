@@ -4,11 +4,11 @@ import React, { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import {
     Header as Container,
-    Utils,
     ThemeContext,
     ComponentProps,
     ButtonIcon,
 } from "tsx-library-julseb"
+import { uuid } from "../../utils"
 
 import { AuthContext, ContextType } from "../../context/auth"
 
@@ -62,11 +62,11 @@ const Header = () => {
         >
             {baseLinks.map(({ text, to, onClick, end }) =>
                 to ? (
-                    <NavLink to={to} end={end} key={Utils.uuid()}>
+                    <NavLink to={to} end={end} key={uuid()}>
                         {text}
                     </NavLink>
                 ) : (
-                    <button onClick={onClick} key={Utils.uuid()}>
+                    <button onClick={onClick} key={uuid()}>
                         {text}
                     </button>
                 )
@@ -75,22 +75,22 @@ const Header = () => {
             {isLoggedIn
                 ? loggedInLinks.map(({ text, to, onClick, end }) =>
                       to ? (
-                          <NavLink to={to} end={end} key={Utils.uuid()}>
+                          <NavLink to={to} end={end} key={uuid()}>
                               {text}
                           </NavLink>
                       ) : (
-                          <button onClick={onClick} key={Utils.uuid()}>
+                          <button onClick={onClick} key={uuid()}>
                               {text}
                           </button>
                       )
                   )
                 : notLoggedInLinks.map(({ text, to, onClick, end }) =>
                       to ? (
-                          <NavLink to={to} end={end} key={Utils.uuid()}>
+                          <NavLink to={to} end={end} key={uuid()}>
                               {text}
                           </NavLink>
                       ) : (
-                          <button onClick={onClick} key={Utils.uuid()}>
+                          <button onClick={onClick} key={uuid()}>
                               {text}
                           </button>
                       )

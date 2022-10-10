@@ -1,8 +1,9 @@
 /*=============================================== MyAccount ===============================================*/
 
 import React, { useContext } from "react"
-import { Text, Utils, Avatar, Flexbox } from "tsx-library-julseb"
+import { Text, Avatar, Flexbox } from "tsx-library-julseb"
 import { Link } from "react-router-dom"
+import { getFirstName } from "../../utils"
 
 import { AuthContext, ContextType } from "../../context/auth"
 
@@ -20,7 +21,7 @@ const MyAccount = () => {
                     size={48}
                 />
 
-                <Text tag="h1">Hello {Utils.getFirstName(user.fullName)}</Text>
+                <Text tag="h1">Hello {getFirstName(user.fullName)}</Text>
             </Flexbox>
 
             {!user.verified && <Text>Your account is not verified!</Text>}

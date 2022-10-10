@@ -1,8 +1,9 @@
 /*=============================================== PublicProfile ===============================================*/
 
 import React from "react"
-import { Text, Hooks, PageLoading, Avatar, Flexbox } from "tsx-library-julseb"
+import { Text, PageLoading, Avatar, Flexbox } from "tsx-library-julseb"
 import { useParams } from "react-router-dom"
+import { useFetch } from "../../hooks"
 
 import userService from "../../api/user.service"
 
@@ -13,7 +14,7 @@ import { UserType } from "../../types"
 const PublicProfile = () => {
     const { id } = useParams()
 
-    const { response, error, isLoading } = Hooks.useFetch<UserType | null>(
+    const { response, error, isLoading } = useFetch<UserType | null>(
         userService.getUser(id || "")
     )
 

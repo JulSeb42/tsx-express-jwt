@@ -6,10 +6,10 @@ import {
     Form,
     Input,
     Alert,
-    Hooks,
     ComponentProps,
 } from "tsx-library-julseb"
 import { useNavigate, Link } from "react-router-dom"
+import { useForm } from "../../hooks"
 
 import { AuthContext, ContextType } from "../../context/auth"
 import authService from "../../api/auth.service"
@@ -27,7 +27,7 @@ const Login = () => {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as ContextType
 
-    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+    const { formData, handleInputs, handleSubmit } = useForm(
         {
             email: "",
             password: "",

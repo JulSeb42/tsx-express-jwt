@@ -7,9 +7,9 @@ import {
     Form,
     Input,
     ComponentProps,
-    Utils,
     Alert,
 } from "tsx-library-julseb"
+import { passwordRegex } from "../../utils"
 
 import { AuthContext, ContextType } from "../../context/auth"
 import userService from "../../api/user.service"
@@ -32,7 +32,7 @@ const EditPassword = ({ edited, setEdited }: EditType) => {
 
         setValidation(
             e.target.value.length > 0
-                ? Utils.passwordRegex.test(password)
+                ? passwordRegex.test(password)
                     ? "passed"
                     : "not-passed"
                 : undefined

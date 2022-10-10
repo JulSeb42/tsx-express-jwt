@@ -6,10 +6,10 @@ import {
     Form,
     Input,
     Alert,
-    Hooks,
     ComponentProps,
 } from "tsx-library-julseb"
 import { useNavigate } from "react-router-dom"
+import { useForm } from "../../hooks"
 
 import authService from "../../api/auth.service"
 
@@ -24,7 +24,7 @@ interface FormType extends ComponentProps.BaseUseFormType {
 const ForgotPassword = () => {
     const navigate = useNavigate()
 
-    const { formData, handleInputs, handleSubmit } = Hooks.useForm(
+    const { formData, handleInputs, handleSubmit } = useForm(
         {
             email: "",
         },

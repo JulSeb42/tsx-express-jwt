@@ -1,7 +1,9 @@
 /*=============================================== AllUsers ===============================================*/
 
 import React from "react"
-import { Text, Hooks, PageLoading, Grid, Utils } from "tsx-library-julseb"
+import { Text, PageLoading, Grid } from "tsx-library-julseb"
+import { uuid } from "../../utils"
+import { useMaxWidth, useFetch } from "../../hooks"
 
 import userService from "../../api/user.service"
 
@@ -11,13 +13,13 @@ import UserCard from "../../components/UserCard"
 import { UserType } from "../../types"
 
 const AllUsers = () => {
-    const { response, error, isLoading } = Hooks.useFetch<UserType[] | null>(
+    const { response, error, isLoading } = useFetch<UserType[] | null>(
         userService.allUsers()
     )
     const users = response
 
-    const isMobile = Hooks.useMaxWidth(600)
-    const isTablet = Hooks.useMaxWidth(768)
+    const isMobile = useMaxWidth(600)
+    const isTablet = useMaxWidth(768)
 
     return isLoading ? (
         <PageLoading />
@@ -32,7 +34,7 @@ const AllUsers = () => {
             ) : (
                 <Grid col={isMobile || isTablet ? 12 : 4}>
                     {users?.map(user => (
-                        <UserCard user={user} key={Utils.uuid()} />
+                        <UserCard user={user} key={uuid()} />
                     ))}
                 </Grid>
             )}

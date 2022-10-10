@@ -1,9 +1,10 @@
 /*=============================================== Signup ===============================================*/
 
 import React, { useState, useContext } from "react"
-import { Text, Form, Input, ComponentProps, Alert, Utils } from "tsx-library-julseb"
+import { Text, Form, Input, ComponentProps, Alert } from "tsx-library-julseb"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { passwordRegex, getRandomAvatar } from "../../utils"
 
 import { AuthContext, ContextType } from "../../context/auth"
 import authService from "../../api/auth.service"
@@ -22,7 +23,7 @@ const Signup = () => {
 
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)
-    
+
     const [validationPassword, setValidationPassword] =
         useState<ComponentProps.ValidationStatusProps>(undefined)
 
@@ -33,7 +34,7 @@ const Signup = () => {
         })
 
         if (e.target.id === "password" && e.target.value.length > 0) {
-            if (Utils.passwordRegex.test(e.target.value)) {
+            if (passwordRegex.test(e.target.value)) {
                 setValidationPassword("passed")
             } else {
                 setValidationPassword("not-passed")
@@ -48,7 +49,7 @@ const Signup = () => {
 
         const requestBody = {
             ...inputs,
-            imageUrl: Utils.getRandomAvatar(),
+            imageUrl: getRandomAvatar(),
         }
 
         authService
