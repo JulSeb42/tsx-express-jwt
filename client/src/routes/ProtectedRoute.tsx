@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, redirectTo = "/login" }: Props) => {
     const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
 
     return isLoading ? (
-        <PageLoading stopScrolling />
+        <PageLoading />
     ) : isLoggedIn ? (
         children
     ) : (

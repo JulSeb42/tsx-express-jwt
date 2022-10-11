@@ -15,7 +15,7 @@ const AnonRoute = ({ children, redirectTo = "/my-account" }: Props) => {
     const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
 
     return isLoading ? (
-        <PageLoading stopScrolling />
+        <PageLoading />
     ) : !isLoggedIn ? (
         children
     ) : (

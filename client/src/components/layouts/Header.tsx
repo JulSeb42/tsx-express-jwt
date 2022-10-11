@@ -15,7 +15,9 @@ import { AuthContext, AuthContextType } from "../../context/auth"
 import siteData from "../../data/site-data"
 
 const Header = () => {
-    const { isLoggedIn, logoutUser } = useContext(AuthContext) as AuthContextType
+    const { isLoggedIn, logoutUser } = useContext(
+        AuthContext
+    ) as AuthContextType
     const { toggleTheme, selectedTheme } = useContext(
         ThemeContext
     ) as ComponentProps.ThemeContextProps

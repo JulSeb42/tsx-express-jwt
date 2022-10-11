@@ -1,13 +1,7 @@
 /*=============================================== Login ===============================================*/
 
 import React, { useState, useContext } from "react"
-import {
-    Text,
-    Form,
-    Input,
-    Alert,
-    ComponentProps,
-} from "tsx-library-julseb"
+import { Text, Form, Input, Alert, ComponentProps } from "tsx-library-julseb"
 import { useNavigate, Link } from "react-router-dom"
 import { useForm } from "../../hooks"
 
@@ -32,7 +26,7 @@ const Login = () => {
             email: "julien.sebag@me.com",
             password: "Password42",
         },
-        (formData: FormType) =>
+        (formData: FormType) => {
             authService
                 .login(formData)
                 .then(res => {
@@ -40,6 +34,7 @@ const Login = () => {
                     navigate(-1)
                 })
                 .catch(err => setErrorMessage(err.response.data.message))
+        }
     ) as FormType
 
     const [errorMessage, setErrorMessage] = useState(undefined)
