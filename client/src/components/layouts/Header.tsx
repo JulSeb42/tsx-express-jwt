@@ -30,7 +30,7 @@ const Header = () => {
         },
         {
             text: "All users",
-            to: "/all-users",
+            to: "/users",
         },
     ]
 

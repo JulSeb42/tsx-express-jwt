@@ -40,7 +40,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     return (
-        <Page title="Log in" mainWidth="form">
+        <Page title="Log in" mainWidth="form" >
             <Text tag="h1">Log in</Text>
 
             <Form onSubmit={handleSubmit} buttonPrimary={{ text: "Log in" }}>

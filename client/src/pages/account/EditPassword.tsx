@@ -54,7 +54,7 @@ const EditPassword = ({ edited, setEdited }: EditType) => {
     }
 
     return (
-        <Page title="Edit password" mainWidth="form">
+        <Page title="Edit password" mainWidth="form" >
             <Text tag="h1">Edit your password</Text>
 
             <Form

@@ -16,9 +16,9 @@ const Signup = () => {
     const navigate = useNavigate()
 
     const [inputs, setInputs] = useState({
-        fullName: "",
-        email: "",
-        password: "",
+        fullName: "Julien Sebag",
+        email: "a@b.com",
+        password: "Password42",
     })
 
     const [errorMessage, setErrorMessage] =
@@ -44,7 +44,7 @@ const Signup = () => {
         }
     }
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const requestBody = {
@@ -52,7 +52,7 @@ const Signup = () => {
             imageUrl: getRandomAvatar(),
         }
 
-        authService
+        await authService
             .signup(requestBody)
             .then(res => {
                 loginUser(res.data.authToken)
