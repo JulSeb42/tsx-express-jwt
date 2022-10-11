@@ -32,7 +32,7 @@ const AllUsers = () => {
             ) : users?.length === 0 ? (
                 <Text>No user yet.</Text>
             ) : (
-                <Grid col={isMobile || isTablet ? 12 : 4}>
+                <Grid col={isMobile || isTablet ? 12 : 6} gap="s">
                     {users?.map(user => (
                         <UserCard user={user} key={uuid()} />
                     ))}

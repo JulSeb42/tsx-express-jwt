@@ -40,7 +40,7 @@ const Verify = ({ edited, setEdited }: EditType) => {
     return (
         <Page title="Verify your account" isLoading={isLoading}>
             {isLoading ? (
-                <PageLoading stopScrolling />
+                <PageLoading />
             ) : (
                 <>
                     {!isLoggedIn ? (

@@ -58,7 +58,7 @@ export default Page
 interface Props extends HelmetProps {
     children?: any
     mainWidth?: "default" | "large" | "form"
-    isLoading?: boolean
     template?: "1col" | "2cols" | "3cols"
+    isLoading?: boolean
     noWrapper?: boolean
 }
