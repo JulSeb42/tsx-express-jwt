@@ -83,7 +83,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <Page title="Reset your password" mainWidth="form">
+        <Page title="Reset your password" mainWidth="form" >
             <Text tag="h1">Reset your password</Text>
 
             <Form onSubmit={handleSubmit} buttonPrimary={{ text: "Send" }}>

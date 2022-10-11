@@ -11,7 +11,7 @@ import {
 } from "tsx-library-julseb"
 import { passwordRegex } from "../../utils"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 import userService from "../../api/user.service"
 
 import Page from "../../components/layouts/Page"
@@ -19,7 +19,7 @@ import Page from "../../components/layouts/Page"
 import { EditType } from "../../types"
 
 const EditPassword = ({ edited, setEdited }: EditType) => {
-    const { user, setUser, setToken } = useContext(AuthContext) as ContextType
+    const { user, setUser, setToken } = useContext(AuthContext) as AuthContextType
     const navigate = useNavigate()
 
     const [password, setPassword] = useState("")
@@ -54,7 +54,7 @@ const EditPassword = ({ edited, setEdited }: EditType) => {
     }
 
     return (
-        <Page title="Edit password" mainWidth="form">
+        <Page title="Edit password" mainWidth="form" >
             <Text tag="h1">Edit your password</Text>
 
             <Form

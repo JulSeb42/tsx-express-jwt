@@ -6,7 +6,7 @@ import authService from "../api/auth.service"
 
 import { UserType } from "../types"
 
-export type ContextType = {
+export type AuthContextType = {
     isLoggedIn?: boolean
     isLoading?: boolean
     user?: any | UserType
@@ -16,7 +16,7 @@ export type ContextType = {
     setToken?: any
 }
 
-const AuthContext = createContext<ContextType | null>(null)
+const AuthContext = createContext<AuthContextType | null>(null)
 
 interface Props {
     children: any

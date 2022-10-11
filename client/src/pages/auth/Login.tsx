@@ -11,7 +11,7 @@ import {
 import { useNavigate, Link } from "react-router-dom"
 import { useForm } from "../../hooks"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
@@ -25,12 +25,12 @@ interface FormType extends ComponentProps.BaseUseFormType {
 
 const Login = () => {
     const navigate = useNavigate()
-    const { loginUser } = useContext(AuthContext) as ContextType
+    const { loginUser } = useContext(AuthContext) as AuthContextType
 
     const { formData, handleInputs, handleSubmit } = useForm(
         {
-            email: "",
-            password: "",
+            email: "julien.sebag@me.com",
+            password: "Password42",
         },
         (formData: FormType) =>
             authService
@@ -45,7 +45,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     return (
-        <Page title="Log in" mainWidth="form">
+        <Page title="Log in" mainWidth="form" >
             <Text tag="h1">Log in</Text>
 
             <Form onSubmit={handleSubmit} buttonPrimary={{ text: "Log in" }}>

@@ -5,12 +5,12 @@ import { Text, Avatar, Flexbox } from "tsx-library-julseb"
 import { Link } from "react-router-dom"
 import { getFirstName } from "../../utils"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 
 import Page from "../../components/layouts/Page"
 
 const MyAccount = () => {
-    const { user } = useContext(AuthContext) as ContextType
+    const { user } = useContext(AuthContext) as AuthContextType
 
     return (
         <Page title="My account">

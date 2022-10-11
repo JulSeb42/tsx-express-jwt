@@ -1,7 +1,9 @@
 /*=============================================== Page ===============================================*/
 
-import React from "react"
-import { Wrapper, Main } from "tsx-library-julseb"
+import React, { useContext } from "react"
+import { Wrapper, Main, PageLoading } from "tsx-library-julseb"
+
+import { AuthContext, AuthContextType } from "../../context/auth"
 
 import Helmet from "./Helmet"
 import Header from "./Header"
@@ -19,7 +21,13 @@ const Page = ({
     isLoading,
     template = "1col",
 }: Props) => {
-    return (
+    const { isLoading: isApiLoading } = useContext(
+        AuthContext
+    ) as AuthContextType
+
+    return isApiLoading || isLoading ? (
+        <PageLoading />
+    ) : (
         <>
             <Helmet
                 title={title}

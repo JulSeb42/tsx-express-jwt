@@ -6,19 +6,19 @@ import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { passwordRegex, getRandomAvatar } from "../../utils"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
 
 const Signup = () => {
-    const { loginUser } = useContext(AuthContext) as ContextType
+    const { loginUser } = useContext(AuthContext) as AuthContextType
     const navigate = useNavigate()
 
     const [inputs, setInputs] = useState({
-        fullName: "",
-        email: "",
-        password: "",
+        fullName: "Julien Sebag",
+        email: "a@b.com",
+        password: "Password42",
     })
 
     const [errorMessage, setErrorMessage] =
@@ -44,7 +44,7 @@ const Signup = () => {
         }
     }
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const requestBody = {
@@ -52,7 +52,7 @@ const Signup = () => {
             imageUrl: getRandomAvatar(),
         }
 
-        authService
+        await authService
             .signup(requestBody)
             .then(res => {
                 loginUser(res.data.authToken)

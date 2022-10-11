@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { Text, PageLoading } from "tsx-library-julseb"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 import authService from "../../api/auth.service"
 
 import Page from "../../components/layouts/Page"
@@ -14,7 +14,7 @@ import { EditType } from "../../types"
 const Verify = ({ edited, setEdited }: EditType) => {
     const { user, setUser, isLoggedIn, setToken } = useContext(
         AuthContext
-    ) as ContextType
+    ) as AuthContextType
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [verified, setVerified] = useState<boolean>(false)

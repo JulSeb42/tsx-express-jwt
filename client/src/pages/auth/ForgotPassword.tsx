@@ -1,13 +1,7 @@
 /*=============================================== ForgotPassword ===============================================*/
 
 import React, { useState } from "react"
-import {
-    Text,
-    Form,
-    Input,
-    Alert,
-    ComponentProps,
-} from "tsx-library-julseb"
+import { Text, Form, Input, Alert, ComponentProps } from "tsx-library-julseb"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "../../hooks"
 
@@ -38,7 +32,7 @@ const ForgotPassword = () => {
     const [errorMessage, setErrorMessage] = useState(undefined)
 
     return (
-        <Page title="I forgot my password" mainWidth="form">
+        <Page title="I forgot my password" mainWidth="form" >
             <Text tag="h1">I forgot my password</Text>
 
             <Text>

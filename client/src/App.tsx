@@ -1,19 +1,20 @@
 /*=============================================== App ===============================================*/
 
-import React, { useState, useContext } from "react"
-import { Routes, Route, Navigate } from "react-router-dom"
+import React, { useContext, useState } from "react"
+import { Routes, Route } from "react-router-dom"
 import { ThemeContext, ThemeProvider, ComponentProps } from "tsx-library-julseb"
 import { uuid } from "./utils"
 
 import ProtectedRoute from "./routes/ProtectedRoute"
 import AnonRoute from "./routes/AnonRoute"
 
-import routes from "./routes/router"
-import redirects from "./routes/redirects"
+import routes from "./routes/routes"
 
 const App = () => {
-    const [edited, setEdited] = useState<boolean>(false)
-    const { theme } = useContext(ThemeContext) as ComponentProps.ThemeContextProps
+    const [edited, setEdited] = useState(false)
+    const { theme } = useContext(
+        ThemeContext
+    ) as ComponentProps.ThemeContextProps
 
     return (
         <ThemeProvider theme={theme}>
@@ -46,15 +47,6 @@ const App = () => {
                         key={uuid()}
                     />
                 ))}
-
-                {redirects.length > 0 &&
-                    redirects.map(route => (
-                        <Route
-                            path={route.path}
-                            element={<Navigate to={route.to} />}
-                            key={uuid()}
-                        />
-                    ))}
             </Routes>
         </ThemeProvider>
     )

@@ -21,7 +21,7 @@ import EditPassword from "../pages/account/EditPassword"
 import PublicProfile from "../pages/user/PublicProfile"
 import AllUsers from "../pages/user/AllUsers"
 
-type route = {
+type Route = {
     path: string
     element: FC | any
     protected?: boolean
@@ -29,7 +29,7 @@ type route = {
     edit?: boolean
 }
 
-const routes: route[] = [
+const routes: Route[] = [
     {
         path: "/",
         element: Homepage,
@@ -37,6 +37,15 @@ const routes: route[] = [
     {
         path: "*",
         element: NotFound,
+    },
+
+    {
+        path: "/users",
+        element: AllUsers,
+    },
+    {
+        path: "/users/:id",
+        element: PublicProfile,
     },
 
     {
@@ -77,6 +86,7 @@ const routes: route[] = [
         element: Goodbye,
         anon: true,
     },
+
     {
         path: "/my-account",
         element: MyAccount,
@@ -86,22 +96,11 @@ const routes: route[] = [
         path: "/my-account/edit",
         element: EditAccount,
         protected: true,
-        edit: true,
     },
     {
         path: "/my-account/edit-password",
         element: EditPassword,
         protected: true,
-        edit: true,
-    },
-
-    {
-        path: "/all-users",
-        element: AllUsers,
-    },
-    {
-        path: "/users/:id",
-        element: PublicProfile,
     },
 ]
 

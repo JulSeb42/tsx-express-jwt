@@ -7,7 +7,7 @@ import Page from "../../components/layouts/Page"
 
 const ForgotSent = () => {
     return (
-        <Page title="Email sent successfully!">
+        <Page title="Email sent successfully!" >
             <Text tag="h1">Email sent successfully!</Text>
 
             <Text>
