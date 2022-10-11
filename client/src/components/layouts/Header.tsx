@@ -34,7 +34,7 @@ const Header = () => {
         },
     ]
 
-    const notLoggedInLinks: NavLinkType[] = [
+    const anonLinks: NavLinkType[] = [
         {
             text: "Log in",
             to: "/login",
@@ -56,47 +56,28 @@ const Header = () => {
         },
     ]
 
+    const navLinksFunc = (links: NavLinkType[]) =>
+        links.map(({ text, to, onClick, end }) =>
+            to ? (
+                <NavLink to={to} end={end} key={uuid()}>
+                    {text}
+                </NavLink>
+            ) : (
+                <button onClick={onClick} key={uuid()}>
+                    {text}
+                </button>
+            )
+        )
+
     return (
         <Container
             logo={{ text: siteData.name }}
             navMobileVariant="drawer"
             shadow="m"
         >
-            {baseLinks.map(({ text, to, onClick, end }) =>
-                to ? (
-                    <NavLink to={to} end={end} key={uuid()}>
-                        {text}
-                    </NavLink>
-                ) : (
-                    <button onClick={onClick} key={uuid()}>
-                        {text}
-                    </button>
-                )
-            )}
+            {navLinksFunc(baseLinks)}
 
-            {isLoggedIn
-                ? loggedInLinks.map(({ text, to, onClick, end }) =>
-                      to ? (
-                          <NavLink to={to} end={end} key={uuid()}>
-                              {text}
-                          </NavLink>
-                      ) : (
-                          <button onClick={onClick} key={uuid()}>
-                              {text}
-                          </button>
-                      )
-                  )
-                : notLoggedInLinks.map(({ text, to, onClick, end }) =>
-                      to ? (
-                          <NavLink to={to} end={end} key={uuid()}>
-                              {text}
-                          </NavLink>
-                      ) : (
-                          <button onClick={onClick} key={uuid()}>
-                              {text}
-                          </button>
-                      )
-                  )}
+            {isLoggedIn ? navLinksFunc(loggedInLinks) : navLinksFunc(anonLinks)}
 
             <ButtonIcon
                 icon={selectedTheme === "dark" ? "sun" : "moon"}
@@ -127,4 +108,4 @@ interface NavLinkButton extends NavLinkBase {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-type NavLinkType = NavLinkTo | NavLinkButton
+export type NavLinkType = NavLinkTo | NavLinkButton
