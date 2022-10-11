@@ -24,6 +24,8 @@ router.post("/signup", (req, res, next) => {
     const { email, fullName, password, imageUrl } = req.body
     const verifyToken = getRandomString(20)
 
+    console.log(req.body)
+
     if (!fullName) {
         return res
             .status(400)

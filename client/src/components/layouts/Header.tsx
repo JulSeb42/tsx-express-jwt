@@ -10,12 +10,14 @@ import {
 } from "tsx-library-julseb"
 import { uuid } from "../../utils"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 
 import siteData from "../../data/site-data"
 
 const Header = () => {
-    const { isLoggedIn, logoutUser } = useContext(AuthContext) as ContextType
+    const { isLoggedIn, logoutUser } = useContext(
+        AuthContext
+    ) as AuthContextType
     const { toggleTheme, selectedTheme } = useContext(
         ThemeContext
     ) as ComponentProps.ThemeContextProps

@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react"
 import { Text, Form, Input, Alert, InputImage } from "tsx-library-julseb"
 import { useNavigate, Link } from "react-router-dom"
 
-import { AuthContext, ContextType } from "../../context/auth"
+import { AuthContext, AuthContextType } from "../../context/auth"
 import userService from "../../api/user.service"
 import cloudinaryService from "../../api/cloudinary.service"
 
@@ -18,7 +18,7 @@ const EditAccount = ({ edited, setEdited }: EditType) => {
 
     const { user, setUser, setToken, logoutUser } = useContext(
         AuthContext
-    ) as ContextType
+    ) as AuthContextType
 
     const [inputs, setInputs] = useState({
         fullName: user.fullName,
