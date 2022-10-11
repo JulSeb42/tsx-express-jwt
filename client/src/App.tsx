@@ -1,7 +1,7 @@
 /*=============================================== App ===============================================*/
 
 import React, { useContext, useState } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { ThemeContext, ThemeProvider, ComponentProps } from "tsx-library-julseb"
 import { uuid } from "./utils"
 
@@ -9,6 +9,7 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import AnonRoute from "./routes/AnonRoute"
 
 import routes from "./routes/routes"
+import redirects from "./routes/redirects"
 
 const App = () => {
     const [edited, setEdited] = useState(false)
@@ -47,6 +48,15 @@ const App = () => {
                         key={uuid()}
                     />
                 ))}
+
+                {redirects.length > 0 &&
+                    redirects.map(route => (
+                        <Route
+                            path={route.path}
+                            element={<Navigate to={route.to} />}
+                            key={uuid()}
+                        />
+                    ))}
             </Routes>
         </ThemeProvider>
     )
