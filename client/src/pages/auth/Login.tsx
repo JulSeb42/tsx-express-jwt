@@ -23,8 +23,8 @@ const Login = () => {
 
     const { formData, handleInputs, handleSubmit } = useForm(
         {
-            email: "julien.sebag@me.com",
-            password: "Password42",
+            email: "",
+            password: "",
         },
         (formData: FormType) => {
             authService

@@ -16,9 +16,9 @@ const Signup = () => {
     const navigate = useNavigate()
 
     const [inputs, setInputs] = useState({
-        fullName: "Julien Sebag",
-        email: "a@b.com",
-        password: "Password42",
+        fullName: "",
+        email: "",
+        password: "",
     })
 
     const [errorMessage, setErrorMessage] =
