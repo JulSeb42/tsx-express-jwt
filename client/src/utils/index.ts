@@ -3,6 +3,7 @@
 import { Utils } from "tsx-library-julseb"
 
 const {
+    calculateAverage,
     calculateTotalSum,
     capitalize,
     convertDate,
@@ -34,6 +35,7 @@ const {
 } = Utils
 
 export {
+    calculateAverage,
     calculateTotalSum,
     capitalize,
     convertDate,
