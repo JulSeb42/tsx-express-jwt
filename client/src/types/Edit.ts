@@ -1,8 +1,6 @@
 /*=============================================== Edit types ===============================================*/
 
-type EditType = {
+export type EditType = {
     edited?: boolean
     setEdited?: any
 }
-
-export default EditType

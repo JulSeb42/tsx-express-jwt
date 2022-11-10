@@ -1,16 +1,15 @@
 /*=============================================== Users routes ===============================================*/
 
-const router = require("express").Router()
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+import { Router } from "express"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { passwordRegex } from "ts-utils-julseb"
 
-const User = require("../models/User.model")
+import User from "../models/User.model"
 
-const { passwordRegex } = require("ts-utils-julseb")
-const jwtConfig = require("../utils/jwtConfig")
+import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig } from "../utils/consts"
 
-// Salt password
-const saltRounds = 10
+const router = Router()
 
 // Get all users
 router.get("/all-users", (req, res, next) => {
@@ -38,14 +37,10 @@ router.put("/edit-account/:id", (req, res, next) => {
 
     User.findByIdAndUpdate(req.params.id, { fullName, imageUrl }, { new: true })
         .then(updatedUser => {
-            // Payload
             const payload = { user: updatedUser }
 
-            const authToken = jwt.sign(
-                payload,
-                process.env.TOKEN_SECRET,
-                jwtConfig
-            )
+            // @ts-expect-error
+            const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
             res.status(201).json({
                 user: updatedUser,
@@ -66,7 +61,7 @@ router.put("/edit-password/:id", (req, res, next) => {
         })
     }
 
-    const salt = bcrypt.genSaltSync(saltRounds)
+    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
     const hashedPassword = bcrypt.hashSync(password, salt)
 
     User.findByIdAndUpdate(
@@ -75,14 +70,10 @@ router.put("/edit-password/:id", (req, res, next) => {
         { new: true }
     )
         .then(updatedUser => {
-            // Payload
             const payload = { user: updatedUser }
 
-            const authToken = jwt.sign(
-                payload,
-                process.env.TOKEN_SECRET,
-                jwtConfig
-            )
+            // @ts-expect-error
+            const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
             res.status(201).json({
                 user: updatedUser,
@@ -101,4 +92,4 @@ router.delete("/delete-account/:id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-module.exports = router
+export default router

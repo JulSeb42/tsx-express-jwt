@@ -1,17 +1,13 @@
 /*=============================================== Error handling ===============================================*/
 
-module.exports = app => {
-    app.use((req, res, next) => {
-        // this middleware runs whenever requested page is not available
+const errorHandler = (app: any) => {
+    app.use((req: any, res: any, next: any) => {
         res.status(404).json({ errorMessage: "This route does not exist" })
     })
 
-    app.use((err, req, res, next) => {
-        // whenever you call next(err), this middleware will handle the error
-        // always logs the error
+    app.use((err: any, req: any, res: any, next: any) => {
         console.error("ERROR", req.method, req.path, err)
 
-        // only render if the error ocurred before sending the response
         if (!res.headersSent) {
             res.status(500).json({
                 errorMessage: "Internal server error. Check the server console",
@@ -19,3 +15,5 @@ module.exports = app => {
         }
     })
 }
+
+export default errorHandler

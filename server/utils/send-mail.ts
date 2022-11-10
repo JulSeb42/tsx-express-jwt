@@ -1,8 +1,19 @@
 /*=============================================== Sendmail function ===============================================*/
 
-const transporter = require("./transporter")
+import nodemailer from "nodemailer"
+import "dotenv/config"
 
-const sendMail = (to, subject, html) => {
+const transporter = nodemailer.createTransport({
+    // @ts-expect-error
+    service: "hotmail",
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.WORD,
+    },
+    port: process.env.PORT_SMTP,
+})
+
+const sendMail = (to: string, subject: string, html: string) => {
     let mailDetails = {
         from: process.env.EMAIL,
         to: to,
@@ -19,4 +30,4 @@ const sendMail = (to, subject, html) => {
     })
 }
 
-module.exports = sendMail
+export default sendMail
