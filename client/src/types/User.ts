@@ -1,6 +1,6 @@
 /*=============================================== User ===============================================*/
 
-type UserType = {
+export type UserType = {
     email: string
     fullName: string
     password: string
@@ -10,5 +10,3 @@ type UserType = {
     imageUrl: string
     _id: string
 }
-
-export default UserType

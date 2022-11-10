@@ -1,30 +1,23 @@
 /*=============================================== Authentification routes ===============================================*/
 
-const router = require("express").Router()
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+import { Router } from "express"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { passwordRegex, emailRegex, getRandomString } from "ts-utils-julseb"
 
-const User = require("../models/User.model")
+import User from "../models/User.model"
 
-const { isAuthenticated } = require("../middleware/jwt.middleware")
+import isAuthenticated from "../middleware/jwt.middleware"
 
-const {
-    passwordRegex,
-    emailRegex,
-    getRandomString,
-} = require("ts-utils-julseb")
-const jwtConfig = require("../utils/jwtConfig")
-const sendMail = require("../utils/send-mail")
+import { jwtConfig, SALT_ROUNDS, TOKEN_SECRET } from "../utils/consts"
+import sendMail from "../utils/send-mail"
 
-// Salt password
-const saltRounds = 10
+const router = Router()
 
 // Signup
 router.post("/signup", (req, res, next) => {
     const { email, fullName, password, imageUrl } = req.body
     const verifyToken = getRandomString(20)
-
-    console.log(req.body)
 
     if (!fullName) {
         return res
@@ -46,6 +39,7 @@ router.post("/signup", (req, res, next) => {
     }
 
     User.findOne({ email })
+        // @ts-expect-error
         .then(foundUser => {
             if (foundUser) {
                 return res
@@ -53,7 +47,7 @@ router.post("/signup", (req, res, next) => {
                     .json({ message: "This email is already taken." })
             }
 
-            const salt = bcrypt.genSaltSync(saltRounds)
+            const salt = bcrypt.genSaltSync(SALT_ROUNDS)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
             return User.create({
@@ -64,21 +58,16 @@ router.post("/signup", (req, res, next) => {
                 verifyToken,
                 imageUrl,
             }).then(createdUser => {
-                // Send email to verify the account
                 sendMail(
                     email,
                     "Verify your account on our app",
                     `Hello,<br /><br />Thank you for creating your account on our app! <a href="${process.env.ORIGIN}/verify/${verifyToken}/${createdUser._id}">Click here to verify your account</a>.`
                 )
 
-                // Payload
                 const payload = { user: createdUser }
 
-                const authToken = jwt.sign(
-                    payload,
-                    process.env.TOKEN_SECRET,
-                    jwtConfig
-                )
+                // @ts-expect-error
+                const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
                 res.status(201).json({
                     user: createdUser,
@@ -109,16 +98,14 @@ router.post("/login", (req, res, next) => {
 
             const passwordCorrect = bcrypt.compareSync(
                 password,
+                // @ts-expect-error
                 foundUser.password
             )
 
             if (passwordCorrect) {
                 const payload = { user: foundUser }
-                const authToken = jwt.sign(
-                    payload,
-                    process.env.TOKEN_SECRET,
-                    jwtConfig
-                )
+                // @ts-expect-error
+                const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
                 res.status(200).json({ authToken: authToken })
             } else {
@@ -132,7 +119,9 @@ router.post("/login", (req, res, next) => {
 
 // Verify if user is logged in
 router.get("/loggedin", isAuthenticated, (req, res, next) => {
+    // @ts-expect-error
     console.log(`req.payload: ${req.payload}`)
+    // @ts-expect-error
     res.status(200).json(req.payload)
 })
 
@@ -143,11 +132,8 @@ router.put("/verify", (req, res, next) => {
     User.findByIdAndUpdate(id, { verified: true }, { new: true })
         .then(updatedUser => {
             const payload = { user: updatedUser }
-            const authToken = jwt.sign(
-                payload,
-                process.env.TOKEN_SECRET,
-                jwtConfig
-            )
+            // @ts-expect-error
+            const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
             res.status(200).json({ authToken: authToken, user: updatedUser })
         })
@@ -179,9 +165,11 @@ router.post("/forgot-password", (req, res, next) => {
                 sendMail(
                     email,
                     "Reset your password on our app",
+                    // @ts-expect-error
                     `Hello,<br /><br />To reset your password, <a href="${process.env.ORIGIN}/reset-password/${resetToken}/${foundUser._id}">click here</a>.`
                 )
 
+                // @ts-expect-error
                 res.status(200).json(res.body)
             })
         })
@@ -201,6 +189,7 @@ router.put("/reset-password", (req, res, next) => {
 
     User.findById(id)
         .then(foundUser => {
+            // @ts-expect-error
             if (foundUser.resetToken !== resetToken) {
                 return res.status(400).json({
                     message:
@@ -208,7 +197,7 @@ router.put("/reset-password", (req, res, next) => {
                 })
             }
 
-            const salt = bcrypt.genSaltSync(saltRounds)
+            const salt = bcrypt.genSaltSync(SALT_ROUNDS)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
             User.findByIdAndUpdate(
@@ -222,4 +211,4 @@ router.put("/reset-password", (req, res, next) => {
         .catch(err => next(err))
 })
 
-module.exports = router
+export default router

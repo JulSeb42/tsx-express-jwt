@@ -1,6 +1,9 @@
-const router = require("express").Router()
+/*=============================================== Uploader ===============================================*/
 
-const fileUploader = require("../config/cloudinary.config")
+import { Router } from "express"
+import fileUploader from "../config/cloudinary.config"
+
+const router = Router()
 
 router.put(
     "/upload-picture",
@@ -15,4 +18,4 @@ router.put(
     }
 )
 
-module.exports = router
+export default router

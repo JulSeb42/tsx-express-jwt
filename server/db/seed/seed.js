@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 const { getRandomString } = require("ts-utils-julseb")
 
-const User = require("../models/User.model")
+const User = require("../../models/User.model")
 
 // Hash password
 const password = "Password42"
